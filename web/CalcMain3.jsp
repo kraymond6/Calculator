@@ -13,47 +13,49 @@
     </head>
     <body>
         <%
-            
             Object areaRec = request.getAttribute("areaRectangle");
             String areaRectangle = "";
-            if(areaRec != null){
+            if (areaRec != null) {
                 areaRectangle = (String) areaRec;
-            }
-            
-            Object areaTri = request.getAttribute("areaTriangle");
-            String areaTriangle = "";
-            if(areaTri != null){
-                areaTriangle = (String) areaTri;
-            }
-            
-            Object areaCir = request.getAttribute("areaCircle");
-            String areaCircle = "";
-            if(areaCir != null){
-                areaCircle = (String) areaCir;
+            } else {
+                areaRectangle = "";
             }
         %>
-         
-         <form id="rectangle" name="rectangle" method="POST" action="ControllerLab3">
+        <form id="rectangle" name="rectangle" method="POST" action="ControllerLab3?formId=rectangle">
             Length: <input type="text" name="length"><br/>
             Width: <input type="text" name="width"><br/>
             <input type="submit" value="Submit"><br />
-            Area: <label id="resultRectangle"><%= areaRectangle %></label>
-            <label hidden id="formId">rectangle</label>
+            Area: <label id="resultRectangle"><%= areaRectangle%></label>
         </form>
         <br />
-        <form id="triangle" name="triangle" method="POST" action="ControllerLab3">
+        <%
+            Object areaTri = request.getAttribute("areaTriangle");
+            String areaTriangle = "";
+            if (areaTri != null) {
+                areaTriangle = (String) areaTri;
+            } else {
+                areaTriangle = "";
+            }%>
+        <form id="triangle" name="triangle" method="POST" action="ControllerLab3?formId=triangle">
             Base: <input type="text" name="base"><br />
             Height: <input type="text" name="height"><br />
             <input type="submit" value="Submit"><br />
-            Area: <label id="resultTriangle"><%= areaTriangle %></label>
-            <label hidden id="formId">triangle</label>
+            Area: <label id="resultTriangle"><%= areaTriangle%></label>
         </form>
+
         <br />
-        <form id="circle" name="circle" method="POST" action="ControllerLab3">
+        <% Object areaCir = request.getAttribute("areaCircle");
+            String areaCircle = "";
+            if (areaCir != null) {
+                areaCircle = (String) areaCir;
+            } else {
+                areaCircle = "";
+            }%>
+        <form id="circle" name="circle" method="POST" action="ControllerLab3?formId=circle">
             Radius: <input type="text" name="radius"><br />
             <input type="submit" value="Submit"><br />
-            Area: <label id="resultCircle"><%= areaCircle %></label>
-            <label hidden id="formId">circle</label>
+            Area: <label id="resultCircle"><%= areaCircle%></label>
         </form>
+
     </body>
 </html>

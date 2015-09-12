@@ -7,7 +7,6 @@ package lab3;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kallie
  */
-@WebServlet(name = "ControllerLab3", urlPatterns = {"/ControllerLab3"})
-public class ControllerLab3 extends HttpServlet {
+@WebServlet(name = "Controller3", urlPatterns = {"/Controller3"})
+public class Controller3 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,62 +32,21 @@ public class ControllerLab3 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String calcId = request.getParameter("formId");
+        String formId = request.getParameter("formId");
         
-        CircleCalc calcCir = new CircleCalc();
-        RectangleCalc calcRec = new RectangleCalc();
-        TriangleCalc calcTri = new TriangleCalc();
-        
-        if (calcId.equals("rectangle")) {
+        if(formId.equals("rectangle")){
             String lengthString = request.getParameter("length");
             String widthString = request.getParameter("width");
             
             Double length = Double.parseDouble(lengthString);
             Double width = Double.parseDouble(widthString);
             
-            calcRec.setLength(length);
-            calcRec.setWidth(width);
-            Double areaRec = calcRec.getArea();
-            String areaStringRec = Double.toString(areaRec);
+            RectangleCalc recCalc = new RectangleCalc(length, width);
             
-            request.setAttribute("areaRectangle", areaStringRec);
+            Double areaRec = recCalc.getArea();
+            String areaRecString = Double.toString(areaRec);
             
-            RequestDispatcher view = request.getRequestDispatcher("/CalcMain3.jsp");
-            view.forward(request, response);   
-        }
-        else if (calcId.equals("triangle")){
-            String baseString = request.getParameter("base");
-            String heightString = request.getParameter("height");
-            
-            Double base = Double.parseDouble(baseString);
-            Double height = Double.parseDouble(heightString);
-            
-            calcTri.setBase(base);
-            calcTri.setHeight(height);
-            Double areaTri = calcTri.getArea();
-            String areaStringTri = Double.toString(areaTri);
-            request.setAttribute("areaTriangle", areaStringTri);
-           
-            RequestDispatcher view = request.getRequestDispatcher("/CalcMain3.jsp");
-            view.forward(request, response);   
-        }
-        else if (calcId.equals("circle")){
-            String radiusString = request.getParameter("radius");
-            
-            Double radius = Double.parseDouble(radiusString);
-            
-            calcCir.setRadius(radius);
-            Double areaCir = calcCir.getArea();
-            
-            String areaStringCir = Double.toString(areaCir);
-            request.setAttribute("areaCircle", areaStringCir);
-            
-            RequestDispatcher view = request.getRequestDispatcher("/CalcMain3.jsp");
-            view.forward(request, response);   
-        }
-        else{
-            
+            request.setAttribute("areaRec", areaRecString);
         }
         
     }
